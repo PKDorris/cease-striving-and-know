@@ -1,0 +1,339 @@
+/* ==========================================================================
+   Cease Striving — Design System
+   Theme: stillness after motion. A settling ripple is the signature motif
+   throughout the site — echoing water calming, or a storm giving way to
+   quiet ("Be still, and know that I am God" — Psalm 46:10).
+   ========================================================================== */
+
+:root {
+  /* Color: pulled directly from Paula's PDD brand palette (blue family, per request) */
+  --linen: #F7F4F0;        /* Dune Whisper — page background */
+  --linen-deep: #EDE7E0;   /* Desert Drift — section backgrounds, cards */
+  --slate: #2B2F33;        /* Near Black — primary text */
+  --slate-soft: #6D747C;   /* Dark Gray — secondary text */
+  --sage: #5EA4D9;         /* Cerulean Surge — secondary accent (was "sage" role, now blue) */
+  --clay: #2A538F;         /* Aurora Navy — primary accent, CTAs, emphasis (was "clay" role, now navy) */
+  --clay-soft: #488CC0;    /* Dark Cerulean — hover state */
+  --taupe-line: #BFC4C9;   /* Medium Gray — dividers, hairlines */
+  --white-ish: #FFFFFF;    /* White — card backgrounds on linen-deep */
+
+  /* Type */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-utility: 'IBM Plex Mono', 'Courier New', monospace;
+
+  /* Spacing scale */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 4rem;
+  --space-xl: 7rem;
+
+  --radius: 2px; /* intentionally minimal rounding — quiet, not soft-app-default */
+  --max-width: 1120px;
+}
+
+/* ---- Reset & base ---- */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--linen);
+  color: var(--slate);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+
+a {
+  color: var(--clay);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+a:hover { color: var(--clay-soft); }
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--clay);
+  outline-offset: 3px;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  color: var(--slate);
+  line-height: 1.15;
+  margin: 0 0 var(--space-sm);
+  font-weight: 600;
+}
+
+h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 500; }
+h2 { font-size: clamp(1.75rem, 3vw, 2.5rem); }
+h3 { font-size: 1.375rem; }
+
+p { margin: 0 0 var(--space-sm); }
+
+.eyebrow {
+  font-family: var(--font-utility);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sage);
+  display: inline-block;
+  margin-bottom: var(--space-xs);
+}
+
+/* Verse citations get their own visual language — set apart, quiet, precise */
+.verse-tag {
+  font-family: var(--font-utility);
+  font-size: 0.8rem;
+  color: var(--slate-soft);
+  border-left: 2px solid var(--sage);
+  padding-left: var(--space-xs);
+  display: inline-block;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+@media (max-width: 640px) {
+  .container { padding: 0 var(--space-sm); }
+}
+
+/* ---- Header / Nav ---- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(239, 235, 225, 0.92);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--taupe-line);
+}
+
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--space-sm);
+  padding-bottom: var(--space-sm);
+}
+
+.logo-mark {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--slate);
+  letter-spacing: 0.01em;
+}
+.logo-mark span { color: var(--clay); }
+
+.nav-links {
+  display: flex;
+  gap: var(--space-md);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  color: var(--slate-soft);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+.nav-links a[aria-current="page"] { color: var(--clay); }
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-xs);
+}
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--slate);
+  margin: 5px 0;
+}
+
+@media (max-width: 720px) {
+  .nav-toggle { display: block; }
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: var(--linen);
+    border-bottom: 1px solid var(--taupe-line);
+    padding: var(--space-sm) var(--space-md);
+    gap: var(--space-sm);
+    display: none;
+  }
+  .nav-links.open { display: flex; }
+}
+
+/* ---- Signature element: the settling ripple ---- */
+.ripple-mark {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  margin: 0 auto;
+}
+.ripple-mark svg { width: 100%; height: 100%; }
+.ripple-mark circle {
+  fill: none;
+  stroke: var(--sage);
+  stroke-width: 1;
+}
+
+/* ---- Hero ---- */
+.hero {
+  padding: var(--space-xl) 0 var(--space-lg);
+  text-align: center;
+}
+.hero .eyebrow { display: block; margin-bottom: var(--space-md); }
+.hero h1 { margin-bottom: var(--space-sm); }
+.hero .lede {
+  max-width: 640px;
+  margin: 0 auto var(--space-md);
+  font-size: 1.15rem;
+  color: var(--slate-soft);
+}
+
+/* ---- Buttons ---- */
+.btn {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.75rem 1.75rem;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-primary {
+  background: var(--clay);
+  color: var(--white-ish);
+}
+.btn-primary:hover { background: var(--clay-soft); color: var(--white-ish); }
+.btn-secondary {
+  background: transparent;
+  border-color: var(--slate);
+  color: var(--slate);
+}
+.btn-secondary:hover { border-color: var(--clay); color: var(--clay); }
+
+/* ---- Sections ---- */
+.section {
+  padding: var(--space-lg) 0;
+}
+.section-alt {
+  background: var(--linen-deep);
+}
+.section-header {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto var(--space-lg);
+}
+
+.hr-line {
+  border: none;
+  border-top: 1px solid var(--taupe-line);
+  margin: 0;
+}
+
+/* ---- Cards ---- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-md);
+}
+.card {
+  background: var(--white-ish);
+  border: 1px solid var(--taupe-line);
+  padding: var(--space-md);
+}
+.card h3 { margin-bottom: var(--space-xs); }
+.card p:last-child { margin-bottom: 0; }
+
+/* ---- Blog ---- */
+.post-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+.post-preview {
+  padding-bottom: var(--space-lg);
+  border-bottom: 1px solid var(--taupe-line);
+}
+.post-preview:last-child { border-bottom: none; }
+.post-preview .post-date {
+  font-family: var(--font-utility);
+  font-size: 0.8rem;
+  color: var(--sage);
+  display: block;
+  margin-bottom: var(--space-xs);
+}
+.post-preview h2 a { color: var(--slate); }
+.post-preview h2 a:hover { color: var(--clay); }
+
+article.post-full {
+  max-width: 680px;
+  margin: 0 auto;
+}
+article.post-full .post-meta {
+  font-family: var(--font-utility);
+  font-size: 0.8rem;
+  color: var(--sage);
+  margin-bottom: var(--space-md);
+}
+article.post-full h1 { margin-bottom: var(--space-md); }
+article.post-full p { font-size: 1.0625rem; }
+
+/* ---- Placeholder / empty states ---- */
+.placeholder-box {
+  border: 1px dashed var(--taupe-line);
+  padding: var(--space-lg);
+  text-align: center;
+  color: var(--slate-soft);
+  background: var(--white-ish);
+}
+.placeholder-box .eyebrow { color: var(--clay); }
+
+/* ---- Footer ---- */
+.site-footer {
+  border-top: 1px solid var(--taupe-line);
+  padding: var(--space-lg) 0 var(--space-md);
+  text-align: center;
+  color: var(--slate-soft);
+  font-size: 0.9rem;
+}
+.site-footer .blessing {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--slate);
+  margin-bottom: var(--space-sm);
+}
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-md);
+  list-style: none;
+  padding: 0;
+  margin: var(--space-sm) 0 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; animation: none !important; }
+}
